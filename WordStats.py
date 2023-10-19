@@ -11,6 +11,8 @@ sentences = []
 ccList = []
 # global list of subordinating conjunctions
 scList = []
+# global variable of doc
+doc = ""
 
 
 # function to load the document
@@ -18,6 +20,7 @@ def load(aPath):
     file = open(aPath, 'r')
     global doctxt
     global sentences
+    global doc
     doctxt = file.read()
     doc = nlp(doctxt)
     sentences = list(doc.sents)
@@ -29,12 +32,10 @@ def avgWPS():
 
 
 # function to return the Corrected Type Token Ratio (number of unique words used per text)
+# # of tokens over the squ. root of 2* # of words in text.
 def cttr():
-    counter = 0
-    for sent in sentences:
-        for token in sent:
-            counter += 1
-    return len(nlp.vocab) / (math.sqrt(2 * counter))
+    # get unique list of words using helper method
+    return len(get_uniqueWords()) / (math.sqrt(2 * len(doc)))
 
 
 # function to return a normalized count per 100 words of subordinating conjunctions
@@ -116,5 +117,20 @@ def get_doc_text():
     return doctxt
 
 
+def get_docLen():
+    return len(doc)
+
+
 def get_sentences():
     return sentences
+
+
+# helper method to create a list of unique words in the text
+def get_uniqueWords():
+    seen = set()
+    uniqueWord = []
+    for token in doc:
+        if token.orth not in seen:
+            uniqueWord.append(token)
+        seen.add(token.orth)
+    return uniqueWord
