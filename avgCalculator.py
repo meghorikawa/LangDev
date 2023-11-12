@@ -43,8 +43,10 @@ def calculate(aPath):
         CPSlist.append(WordStats.clauses_per_sentence())
         # Clause length (words per clause)
         WPClist.append(WordStats.words_per_clause())
-        CClist.append(WordStats.getCCList())
-        SClist.append(WordStats.getSCList())
+        WordStats.write_SClist()
+        WordStats.write_CClist()
+        CClist.extend(WordStats.getCCList())
+        SClist.extend(WordStats.getSCList())
 
 
 # return the average WPS

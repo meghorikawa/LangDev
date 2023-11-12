@@ -2,7 +2,7 @@ import math
 import spacy
 import clauseExtractor
 
-nlp = spacy.load("ja_ginza")
+nlp = spacy.load('ja_ginza')
 # global variable to save document text
 doctxt = ""
 # global variable of list of sentences in document
@@ -25,6 +25,15 @@ def load(aPath):
     doc = nlp(doctxt)
     sentences = list(doc.sents)
 
+# function to directly load a text (without a file)
+
+def load_text(atext):
+    global doctxt
+    global doc
+    global sentences
+    doctxt = atext
+    doc = nlp(doctxt)
+    sentences = list(doc.sents)
 
 # function to return the average words per sentence in a document
 def avgWPS():
@@ -82,20 +91,18 @@ def getSCList():
 
 # function to return the average count of words per clause
 def words_per_clause():
-    # instantiate a sum of the words per clause
-    wpcSum = 0
-    # clause count
-    totalClauses = 0
+    # instantiate a list to track each clauses' length
+    wpcSum = []
+
     # first iterate through list of sentences
     for sent in sentences:
         clauseExtractor.extract_clauses(sent)
         # update value of sum
-        wpcSum += clauseExtractor.wordsp_clause()
-        totalClauses += clauseExtractor.clause_count()
+        wpcSum.append(clauseExtractor.wordsp_clause())
         # need to clear after each iteration
         clauseExtractor.clear()
     # return the average of words per clause
-    return wpcSum / totalClauses
+    return sum(wpcSum) / len(wpcSum)
 
 
 # function to return the average count of clauses per sentence
@@ -134,3 +141,19 @@ def get_uniqueWords():
             uniqueWord.append(token)
         seen.add(token.orth)
     return uniqueWord
+
+
+# method to write outputs to SC lists
+def write_SClist():
+    file = open('/Users/megu/Documents/Tübingen Universität/Language Development/Research Project/SClist.txt', 'a')
+    # iterate through the SC list and write to file
+    for item in scList:
+        file.write(f'{item}\n')
+    file.close()
+# method to write outputs to CC lists
+def write_CClist():
+    file = open('/Users/megu/Documents/Tübingen Universität/Language Development/Research Project/CClist.txt', 'a')
+    # iterate through the CC list and write to file
+    for item in ccList:
+        file.write(f'{item}\n')
+    file.close()

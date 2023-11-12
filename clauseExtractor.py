@@ -1,7 +1,7 @@
 import spacy
 import ja_ginza
 
-nlp = spacy.load("ja_ginza")
+nlp = spacy.load('ja_ginza')
 # the root verb of the sentence
 root = None
 # the root clause of the sentence
@@ -14,11 +14,11 @@ clauses = []
 clauseHeadList = []
 
 # the main function which will build and return a nested list of clauses within a sentence
-def extract_clauses(doc):
+def extract_clauses(adoc):
     global root
     global rootClause
 
-    find_root(doc)
+    find_root(adoc)
 
     for child in root.children:
         # if token in child node tagged as a clause head save in separate list to access later
@@ -32,6 +32,7 @@ def extract_clauses(doc):
     # after building root clause iterate through the clause head list to also build those clauses
     for token in clauseHeadList:
         clauses.append(clause_builder(token))
+
     return clauses
 
 
@@ -63,20 +64,24 @@ def find_root(aSent):
             rootClause.append(root)
             break
 
+
 # function which will return the number of clauses per sentence
 def clause_count():
     return len(clauses)
+
 
 # function which will return the average number of "words" per clause
 def wordsp_clause():
     sum = 0
     for clause in clauses:
         sum = sum + len(clause)
-    return sum/len(clauses)
+    return sum / len(clauses)
+
 
 # function that returns the list of clauses
 def get_clause():
     return clauses
+
 
 # clear everything for the next sentence to be processed
 def clear():
@@ -94,4 +99,3 @@ def clear():
     clauses = []
     # global list of clause heads
     clauseHeadList = []
-
