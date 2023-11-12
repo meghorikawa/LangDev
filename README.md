@@ -4,18 +4,7 @@
 
 ## Abstract
 
-This study explores different measures of writing
-complexity on a Japanese learner corpus.
-An analysis of writing samples from
-687 Japanese learners and a native control
-group, were analyzed via automatically calculated
-measures. Findings align with those of
-other widely studied languages, were learners
-showed a consistent increase of sentence length,
-clause length, clauses per sentence, and control
-type token ratio. Consistent with previous studies
-a negative correlation between coordination
-and subordination was also observed.
+This study explores different measures of writing complexity on a Japanese learner corpus. An analysis of writing samples from 687 Japanese learners and a native control group from the I-JAS corpus was conducted via automatically calculated measures. Findings align with those of other widely studied languages, where learners showed a consistent increase of sentence length, clause length, clauses per sentence, and control type token ratio. Consistent with previous studies a negative correlation between coordination and subordination was also observed. 
 
 # References
 
@@ -36,6 +25,12 @@ Matthew Honnibal and Ines Montani. 2017. spaCy 2:
 Natural language understanding with Bloom embeddings,
 convolutional neural networks and incremental
 parsing. To appear.
+
+Masayuki Asahara Hiroshi Matsuda, Mai Omura. 2019.
+短単位品詞の用法曖昧性解決と依存関係ラベ
+リングの同時学習. The Association for Natural
+Language Processing.[言語処理学会 第25回年次
+大会]
 
 S. Imai, S. Ito, Y. Nakamura, K. Kikuchi, Y. Akagi,
 H. Nakasono, A. Honda, and T. Hiramura. 2009.
