@@ -6,6 +6,32 @@
 
 This study explores different measures of writing complexity on a Japanese learner corpus. An analysis of writing samples from 687 Japanese learners and a native control group from the I-JAS corpus was conducted via automatically calculated measures. Findings align with those of other widely studied languages, where learners showed a consistent increase of sentence length, clause length, clauses per sentence, and control type token ratio. Consistent with previous studies a negative correlation between coordination and subordination was also observed. 
 
+
+![Sentence Length Across Proficency Levels](results/SenLen.png)
+Figure 1: The average sentence length observed across proficiency
+levels
+
+![Clause Length Across Proficency Levels](results/ClauseLen.png)
+Figure 2: The average clause length observed across proficiency
+levels
+
+![Number of Clauses per Sentence](results/ClausePerSent.png)
+Figure 3: The average count of clauses per sentence observed
+across proficiency levels
+
+![CC Frequency](results/CCFreq.png)
+Figure 4: The average count of coordinating conjunctions
+(CC) observed across proficiency levels
+
+![SC Frequency](results/SCFreq.png)
+Figure 5: The average count of subordinating conjunctions
+(SC) observed across proficiency levels
+
+![CTTR](results/CTTR.png)
+Figure 6: The average corrected type token ration
+(CTTR) observed accross proficiency levels
+
+
 # References
 
 Theodora Alexopoulou, Marije Michel, Akira Murakami,
