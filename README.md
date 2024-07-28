@@ -7,27 +7,27 @@
 This study explores different measures of writing complexity on a Japanese learner corpus. An analysis of writing samples from 687 Japanese learners and a native control group from the I-JAS corpus was conducted via automatically calculated measures. Findings align with those of other widely studied languages, where learners showed a consistent increase of sentence length, clause length, clauses per sentence, and control type token ratio. Consistent with previous studies a negative correlation between coordination and subordination was also observed. 
 
 
-![Sentence Length Across Proficency Levels](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/SenLen.png)
+![Sentence Length Across Proficency Levels](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/SL2.png)
 Figure 1: The average sentence length observed across proficiency
 levels
 
-![Clause Length Across Proficency Levels](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/ClauseLen.png)
+![Clause Length Across Proficency Levels](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/CL2.png)
 Figure 2: The average clause length observed across proficiency
 levels
 
-![Number of Clauses per Sentence](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/ClausePerSent.png)
+![Number of Clauses per Sentence](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/CLpS2.png)
 Figure 3: The average count of clauses per sentence observed
 across proficiency levels
 
-![CC Frequency](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/CCFreq.png)
+![CC Frequency](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/CC2.png)
 Figure 4: The average count of coordinating conjunctions
 (CC) observed across proficiency levels
 
-![SC Frequency](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/SCFreq.png)
+![SC Frequency](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/SC2.png)
 Figure 5: The average count of subordinating conjunctions
 (SC) observed across proficiency levels
 
-![CTTR](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/CTTR.png)
+![CTTR](https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/CTTR2.png)
 Figure 6: The average corrected type token ration
 (CTTR) observed accross proficiency levels
 
