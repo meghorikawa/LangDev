@@ -7,7 +7,7 @@
 This study explores different measures of writing complexity on a Japanese learner corpus. An analysis of writing samples from 687 Japanese learners and a native control group from the I-JAS corpus was conducted via automatically calculated measures. Findings align with those of other widely studied languages, where learners showed a consistent increase of sentence length, clause length, clauses per sentence, and control type token ratio. Consistent with previous studies a negative correlation between coordination and subordination was also observed. 
 
 
-<img src="https://github.com/meghorikawa/LangDev/blob/1bec8925248bd1b9e880229e8876682ee0dee1ca/Results/SL2.png" width=40% height=40%>
+<img src="Results/SL2.png" width=40% height=40%>
 Figure 1: The average sentence length observed across proficiency
 levels
 
