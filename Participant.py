@@ -1,14 +1,16 @@
 import pandas as pd
 import os
 import avgCalculator
-# create a class to sort the participants by their number and Jcat score with other attributes
+import re
 
-# first make list of participants sorted by J-CAT score
+# Create a class to sort the participants by their number and JCAT score with other attributes
+
+# First make list of participants sorted by J-CAT score
 participants = []
 
-# list of CC
+# List of CC
 CClist = []
-# list of SC
+# List of SC
 SClist = []
 
 writinglist = os.listdir('/Users/megu/Documents/Tübingen Universität/Language Development/Research Project/Corpus')
@@ -18,22 +20,23 @@ class Participant:
     def __init__(self, name, score):
         self.name = name
         self.score = score
-        # average sent length (words per sentence)
+        self.tasks = []
+        # Average sent length (words per sentence)
         self.WPSavg = 0
-        # corrected type token ratio
+        # Corrected type token ratio
         self.CTTR = 0
-        # frequency of Coordinating Conjunctions per 100 words
+        # Frequency of Coordinating Conjunctions per 100 words
         self.CCfreq = 0
-        # frequency of subordinating conjunctions per 100 words
+        # Frequency of subordinating conjunctions per 100 words
         self.SCfreq = 0
-        # avg clause length
+        # Avg clause length
         self.clauseLen = 0
-        # avg clause count per sent
+        # Avg clause count per sent
         self.clauseCount = 0
 
-    # the to string method
+    # The to string method
     def __str__(self):
-        return f'Participant: {self.name}  J-Cat Score: {self.score} Words per Sent: {self.WPSavg} CTTR: {self.CTTR}'
+        return f'Participant: {self.name} J-Cat Score: {self.score} Words per Sent: {self.WPSavg} CTTR: {self.CTTR}'
 
 def load():
     from pandas import read_excel
@@ -43,59 +46,74 @@ def load():
     participantsList = 'ijas_202205_WC.xlsx'
     my_sheet = 'Sheet2'
 
-    # load participant list into pandas
+    # Load participant list into pandas
     df = read_excel(participantsList, sheet_name=my_sheet)
     df.dropna(axis=0)
     JCATScore = df[['協力者', 'J-CAT (合計)']]
 
     for i in JCATScore.index:
-        # save data as new Participant
+        # Save data as new Participant
         aParticipantName = JCATScore['協力者'][i]
-        if not aParticipantName.__contains__('JJJ') :
+        if not aParticipantName.__contains__('JJJ'):
             if writinglist.__contains__(aParticipantName):
-                aParticipantName = Participant(aParticipantName, JCATScore['J-CAT (合計)'][i])
-                # add to participant list
-                participants.append(aParticipantName)
+                aParticipant = Participant(aParticipantName, JCATScore['J-CAT (合計)'][i])
+                # Add to participant list
+                participants.append(aParticipant)
         else:
             if writinglist.__contains__(aParticipantName):
-                aParticipantName = Participant(aParticipantName, '-')
-                participants.append(aParticipantName)
+                aParticipant = Participant(aParticipantName, '999')
+                participants.append(aParticipant)
 
-
-# a method to return a list of participants
+# A method to return a list of participants
 def getParticipants():
     return participants
 
-# a method to find a certain participant returns the index that participant is found at in the list
+# A method to find a certain participant returns the index that participant is found at in the list
 def findParticipant(aName):
     for participant in participants:
         if participant.name == aName:
             return participants.index(participant)
-        break
+    return -1
 
-# a method to make the average calculations on the texts in the corpus
+# A method to make the average calculations on the texts in the corpus
 def calculateStats():
     for participant in participants:
         update(participant)
 
-# calculate and update the stats for each participant
+# Calculate and update the stats for each participant
 def update(aParticipant):
     path = f'/Users/megu/Documents/Tübingen Universität/Language Development/Research Project/Corpus/{aParticipant.name}'
     if os.path.isdir(path):
-        avgCalculator.calculate(path)
-        aParticipant.WPSavg = avgCalculator.getWPS()
-        aParticipant.CTTR = avgCalculator.getCTTR()
-        aParticipant.CCfreq = avgCalculator.getCCfreq()
-        aParticipant.SCfreq = avgCalculator.getSCfreq()
-        aParticipant.clauseLen = avgCalculator.getWPC()
-        aParticipant.clauseCount = avgCalculator.getCPS()
+        # Return list of files in directory
+        files_list = os.listdir(path)
+        for file in files_list:
+            new_path = f'{path}/{file}'
+            avgCalculator.calculate(new_path)
+            task = get_task(file)
+            aParticipant.tasks.append({
+                'task': task,
+                'WPSavg': avgCalculator.getWPS(),
+                'CTTR': avgCalculator.getCTTR(),
+                'CCfreq': avgCalculator.getCCfreq(),
+                'SCfreq': avgCalculator.getSCfreq(),
+                'clauseLen': avgCalculator.getWPC(),
+                'clauseCount': avgCalculator.getCPS()
+            })
     else:
         participants.remove(aParticipant)
     avgCalculator.clear()
 
+def get_task(file_name):
+    pattern = r'_(\w{1,2})\.txt$'
+    match = re.search(pattern, file_name)
+    if match is not None:
+        return match.group(1)
+    else:
+        return None
 
-# return lists of CC and SC used across all texts
+# Return lists of CC and SC used across all texts
 def SCCClist():
+    global CClist, SClist
     CClist = avgCalculator.getCClist()
     SClist = avgCalculator.getSClist()
 
@@ -110,28 +128,29 @@ def saveSClist():
             output.write(str(item) + '\n')
 
 def saveList():
-    # lists of columns in exported file
-    names = [] # participant name
-    scores = [] # J-cat Score
-    WPSavgs =[] # words per sentence average
-    clauseLens = [] # average clause length
-    clauseCounts = [] # average clause count
-    CCfreqs = [] # freq of Coordinating conjunction per 100 words
-    SCfreqs = [] # freq of subordinating conjunction per 100 words
-    CTTRs = []   # Correct Type Token Ratio
+    # Lists of columns in exported file
+    participant_data = []
 
     for participant in participants:
-        names.append(participant.name)
-        scores.append(participant.score)
-        WPSavgs.append(participant.WPSavg)
-        clauseLens.append(participant.clauseLen)
-        clauseCounts.append(participant.clauseCount)
-        CCfreqs.append(participant.CCfreq)
-        SCfreqs.append(participant.SCfreq)
-        CTTRs.append(participant.CTTR)
+        for task in participant.tasks:
+            participant_data.append({
+                'name': participant.name,
+                'J-cat Score': participant.score,
+                'task': task['task'],
+                'Sentence Length': task['WPSavg'],
+                'Clause Length': task['clauseLen'],
+                'Clauses per Sentence': task['clauseCount'],
+                'CC Freq': task['CCfreq'],
+                'SC Freq': task['SCfreq'],
+                'CTTR': task['CTTR']
+            })
 
-    # convert to pandas df
-    dict = {'name': names, 'J-cat Score': scores, 'Sentence Length' : WPSavgs, 'Clause Length': clauseLens, 'Clauses per Sentence': clauseCounts, 'CC Freq':CCfreqs, 'SC Freq': SCfreqs, 'CTTR': CTTRs}
-    dfexport = pd.DataFrame(dict)
-    dfexport.to_csv('participantData.csv')
+    # Convert to pandas df
+    dfexport = pd.DataFrame(participant_data)
+    dfexport.to_csv('participantData.csv', index=False)
     print('data exported')
+
+# Ensure to call the appropriate functions in your workflow
+load()
+calculateStats()
+saveList()
