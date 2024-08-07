@@ -26,27 +26,24 @@ SClist = []
 
 # method to calculate the average wps across a participants texts
 def calculate(aPath):
-    files = os.listdir(aPath)
-    # iterate through each of the files in the directory
-    for aFile in files:
-        # load text into wordstats
-        WordStats.load(f'{aPath}/{aFile}')
-        # add the words per sent
-        WPS.append(WordStats.avgWPS())
-        # add the CTTR
-        CTTRlist.append(WordStats.cttr())
-        # add freq of CC
-        CCfreqlist.append(WordStats.ccFreq())
-        # add freq of SC
-        SCfreqlist.append(WordStats.scFreq())
-        # clauses per sent
-        CPSlist.append(WordStats.clauses_per_sentence())
-        # Clause length (words per clause)
-        WPClist.append(WordStats.words_per_clause())
-        WordStats.write_SClist()
-        WordStats.write_CClist()
-        CClist.extend(WordStats.getCCList())
-        SClist.extend(WordStats.getSCList())
+    # load text into wordstats
+    WordStats.load(aPath)
+    # add the words per sent
+    WPS.append(WordStats.avgWPS())
+    # add the CTTR
+    CTTRlist.append(WordStats.cttr())
+    # add freq of CC
+    CCfreqlist.append(WordStats.ccFreq())
+    # add freq of SC
+    SCfreqlist.append(WordStats.scFreq())
+    # clauses per sent
+    CPSlist.append(WordStats.clauses_per_sentence())
+    # Clause length (words per clause)
+    WPClist.append(WordStats.words_per_clause())
+    WordStats.write_SClist()
+    WordStats.write_CClist()
+    CClist.extend(WordStats.getCCList())
+    SClist.extend(WordStats.getSCList())
 
 
 # return the average WPS
